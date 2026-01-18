@@ -1,11 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState } from "react";
 import {
-    Alert,
-    FlatList,
-    StyleSheet,
-    TouchableOpacity,
-    View,
+  Alert,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { ThemedText } from "./themed-text";
 import { ThemedView } from "./themed-view";
@@ -133,17 +133,12 @@ export function ProgressList() {
         <ThemedText style={styles.date}>
           Completed on: {formatDate(item.completedAt)}
         </ThemedText>
-        {item.exercises.slice(0, 3).map((exercise, index) => (
+        {item.exercises.map((exercise, index) => (
           <ThemedText key={exercise.id} style={styles.exerciseItem}>
             {exercise.name}: {exercise.sets} × {exercise.reps} @{" "}
             {exercise.weight}kg
           </ThemedText>
         ))}
-        {item.exercises.length > 3 && (
-          <ThemedText style={styles.moreExercises}>
-            +{item.exercises.length - 3} more exercises
-          </ThemedText>
-        )}
       </View>
     </ThemedView>
   );
