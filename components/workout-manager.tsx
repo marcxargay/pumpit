@@ -394,7 +394,6 @@ const styles = StyleSheet.create({
   exerciseCount: {
     fontSize: 10,
     opacity: 0.6,
-    marginTop: 2,
   },
   addWorkoutButton: {
     width: 40,

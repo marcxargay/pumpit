@@ -112,33 +112,35 @@ export function ProgressList() {
         </View>
       </View>
 
-      <View style={styles.sessionStats}>
-        <View style={styles.statItem}>
-          <ThemedText style={styles.statValue}>
-            {item.exercises.length}
-          </ThemedText>
-          <ThemedText style={styles.statLabel}>Exercises</ThemedText>
+      <View style={styles.contentContainer}>
+        <View style={styles.sessionStats}>
+          <View style={styles.statItem}>
+            <ThemedText style={styles.statValue}>
+              {item.exercises.length}
+            </ThemedText>
+            <ThemedText style={styles.statLabel}>Exercises</ThemedText>
+          </View>
+          <View style={styles.statItem}>
+            <ThemedText style={styles.statValue}>{item.totalSets}</ThemedText>
+            <ThemedText style={styles.statLabel}>Sets</ThemedText>
+          </View>
+          <View style={styles.statItem}>
+            <ThemedText style={styles.statValue}>{item.totalVolume}</ThemedText>
+            <ThemedText style={styles.statLabel}>Volume (kg)</ThemedText>
+          </View>
         </View>
-        <View style={styles.statItem}>
-          <ThemedText style={styles.statValue}>{item.totalSets}</ThemedText>
-          <ThemedText style={styles.statLabel}>Sets</ThemedText>
-        </View>
-        <View style={styles.statItem}>
-          <ThemedText style={styles.statValue}>{item.totalVolume}</ThemedText>
-          <ThemedText style={styles.statLabel}>Volume (kg)</ThemedText>
-        </View>
-      </View>
 
-      <View style={styles.exerciseList}>
-        <ThemedText style={styles.date}>
-          Completed on: {formatDate(item.completedAt)}
-        </ThemedText>
-        {item.exercises.map((exercise, index) => (
-          <ThemedText key={exercise.id} style={styles.exerciseItem}>
-            {exercise.name}: {exercise.sets} × {exercise.reps} @{" "}
-            {exercise.weight}kg
+        <View style={styles.exerciseList}>
+          <ThemedText style={styles.date}>
+            Completed on: {formatDate(item.completedAt)}
           </ThemedText>
-        ))}
+          {item.exercises.map((exercise, index) => (
+            <ThemedText key={exercise.id} style={styles.exerciseItem}>
+              {exercise.name}: {exercise.sets} × {exercise.reps} @{" "}
+              {exercise.weight}kg
+            </ThemedText>
+          ))}
+        </View>
       </View>
     </ThemedView>
   );
@@ -276,13 +278,17 @@ const styles = StyleSheet.create({
     fontSize: 10,
     opacity: 0.6,
   },
-  sessionStats: {
+  contentContainer: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    marginBottom: 12,
+    gap: 12,
+  },
+  sessionStats: {
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    gap: 12,
     paddingVertical: 8,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
+    paddingRight: 12,
+    borderRightWidth: 1,
     borderColor: "#f0f0f0",
   },
   statItem: {
@@ -299,6 +305,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   exerciseList: {
+    flex: 1,
     gap: 4,
   },
   exerciseItem: {
