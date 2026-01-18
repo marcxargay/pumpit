@@ -68,13 +68,6 @@ export function ExerciseList({
 
   return (
     <ThemedView style={styles.container}>
-      <View style={styles.header}>
-        <ThemedText type="subtitle">{workoutName}</ThemedText>
-        <TouchableOpacity style={styles.addButton} onPress={addNewExercise}>
-          <ThemedText style={styles.addButtonText}>+ Add Exercise</ThemedText>
-        </TouchableOpacity>
-      </View>
-
       <FlatList
         data={exercises}
         renderItem={renderExerciseItem}
@@ -95,16 +88,21 @@ export function ExerciseList({
         </ThemedView>
       )}
 
-      {exercises.length > 0 && onWorkoutDone && (
-        <View style={styles.workoutDoneContainer}>
-          <TouchableOpacity
-            style={styles.workoutDoneButton}
-            onPress={onWorkoutDone}
-          >
-            <ThemedText style={styles.workoutDoneButtonText}>
-              🏁 Workout Done
-            </ThemedText>
+      {exercises.length > 0 && (
+        <View style={styles.actionContainer}>
+          <TouchableOpacity style={styles.addButton} onPress={addNewExercise}>
+            <ThemedText style={styles.addButtonText}>+ Add Exercise</ThemedText>
           </TouchableOpacity>
+          {onWorkoutDone && (
+            <TouchableOpacity
+              style={styles.workoutDoneButton}
+              onPress={onWorkoutDone}
+            >
+              <ThemedText style={styles.workoutDoneButtonText}>
+                Workout Done
+              </ThemedText>
+            </TouchableOpacity>
+          )}
         </View>
       )}
     </ThemedView>
@@ -115,17 +113,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  header: {
+  actionContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 20,
+    marginTop: 20,
+    paddingHorizontal: 20,
   },
   addButton: {
     backgroundColor: "#007AFF",
+    paddingVertical: 12,
     paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
+    borderRadius: 12,
+    alignItems: "center",
+    justifyContent: "center",
   },
   addButtonText: {
     color: "white",
@@ -155,16 +156,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     opacity: 0.5,
   },
-  workoutDoneContainer: {
-    marginTop: 20,
-    paddingHorizontal: 20,
-  },
   workoutDoneButton: {
     backgroundColor: "#14381d",
-    paddingVertical: 16,
-    paddingHorizontal: 24,
-    borderRadius: 12,
+    paddingVertical: 12, // Match padding with addButton
+    paddingHorizontal: 16, // Match padding with addButton
+    borderRadius: 12, // Match roundness with addButton
     alignItems: "center",
+    justifyContent: "center",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
