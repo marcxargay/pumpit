@@ -88,23 +88,21 @@ export function ExerciseList({
         </ThemedView>
       )}
 
-      {exercises.length > 0 && (
-        <View style={styles.actionContainer}>
-          <TouchableOpacity style={styles.addButton} onPress={addNewExercise}>
-            <ThemedText style={styles.addButtonText}>+ Add Exercise</ThemedText>
+      <View style={styles.actionContainer}>
+        <TouchableOpacity style={styles.addButton} onPress={addNewExercise}>
+          <ThemedText style={styles.addButtonText}>+ Add Exercise</ThemedText>
+        </TouchableOpacity>
+        {exercises.length > 0 && onWorkoutDone && (
+          <TouchableOpacity
+            style={styles.workoutDoneButton}
+            onPress={onWorkoutDone}
+          >
+            <ThemedText style={styles.workoutDoneButtonText}>
+              Workout Done
+            </ThemedText>
           </TouchableOpacity>
-          {onWorkoutDone && (
-            <TouchableOpacity
-              style={styles.workoutDoneButton}
-              onPress={onWorkoutDone}
-            >
-              <ThemedText style={styles.workoutDoneButtonText}>
-                Workout Done
-              </ThemedText>
-            </TouchableOpacity>
-          )}
-        </View>
-      )}
+        )}
+      </View>
     </ThemedView>
   );
 }
@@ -137,7 +135,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   listContent: {
-    paddingBottom: 100,
+    paddingBottom: 120,
   },
   emptyState: {
     flex: 1,
