@@ -9,6 +9,8 @@ interface ExerciseListProps {
   onUpdateExercises: (exercises: Exercise[]) => void;
   workoutName: string;
   onWorkoutDone?: () => void;
+  onEditWorkout?: () => void;
+  onDeleteWorkout?: () => void;
 }
 
 export function ExerciseList({
@@ -16,6 +18,8 @@ export function ExerciseList({
   onUpdateExercises,
   workoutName,
   onWorkoutDone,
+  onEditWorkout,
+  onDeleteWorkout,
 }: ExerciseListProps) {
   const [exercises, setExercises] = useState<Exercise[]>(initialExercises);
   const [newlyAddedId, setNewlyAddedId] = useState<string | null>(null);
@@ -89,17 +93,28 @@ export function ExerciseList({
       )}
 
       <View style={styles.actionContainer}>
+        {onEditWorkout && (
+          <TouchableOpacity style={styles.editButton} onPress={onEditWorkout}>
+            <ThemedText style={styles.actionButtonText}>✏️</ThemedText>
+          </TouchableOpacity>
+        )}
+        {onDeleteWorkout && (
+          <TouchableOpacity
+            style={styles.deleteButton}
+            onPress={onDeleteWorkout}
+          >
+            <ThemedText style={styles.actionButtonText}>🗑️</ThemedText>
+          </TouchableOpacity>
+        )}
         <TouchableOpacity style={styles.addButton} onPress={addNewExercise}>
-          <ThemedText style={styles.addButtonText}>+ Add Exercise</ThemedText>
+          <ThemedText style={styles.addButtonText}>+ Add</ThemedText>
         </TouchableOpacity>
         {exercises.length > 0 && onWorkoutDone && (
           <TouchableOpacity
             style={styles.workoutDoneButton}
             onPress={onWorkoutDone}
           >
-            <ThemedText style={styles.workoutDoneButtonText}>
-              Workout Done
-            </ThemedText>
+            <ThemedText style={styles.workoutDoneButtonText}>Done</ThemedText>
           </TouchableOpacity>
         )}
       </View>
@@ -117,6 +132,28 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 20,
     paddingHorizontal: 20,
+    gap: 8,
+  },
+  editButton: {
+    backgroundColor: "#007AFF",
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 12,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  deleteButton: {
+    backgroundColor: "#FF3B30",
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 12,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  actionButtonText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "600",
   },
   addButton: {
     backgroundColor: "#007AFF",
@@ -125,6 +162,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: "center",
     justifyContent: "center",
+    flex: 1,
   },
   addButtonText: {
     color: "white",
@@ -156,11 +194,12 @@ const styles = StyleSheet.create({
   },
   workoutDoneButton: {
     backgroundColor: "#14381d",
-    paddingVertical: 12, // Match padding with addButton
-    paddingHorizontal: 16, // Match padding with addButton
-    borderRadius: 12, // Match roundness with addButton
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 12,
     alignItems: "center",
     justifyContent: "center",
+    flex: 1,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -169,7 +208,7 @@ const styles = StyleSheet.create({
   },
   workoutDoneButtonText: {
     color: "white",
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: "700",
   },
 });
